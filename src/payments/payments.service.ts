@@ -13,6 +13,7 @@ export class PaymentsService {
   }
 
   createPayment(paymentRequestBody: PaymentRequestBody): Promise<any> {
+    console.info("Deployment");
     let sumAmount = 0;
     paymentRequestBody.products.forEach((product) => {
       sumAmount = sumAmount + product.price * product.quantity;
