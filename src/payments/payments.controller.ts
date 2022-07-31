@@ -20,10 +20,25 @@ export class PaymentsController {
     this.paymentService
       .createPayment(paymentRequestBody)
       .then((res) => {
-        response.status(HttpStatus.CREATED).json(res);
+        response.status(HttpStatus.OK).json(res);
       })
       .catch((err) => {
         response.status(HttpStatus.BAD_REQUEST).json(err);
+      });
+  }
+
+  @Post('/checkout')
+  paymentSheet(
+    @Res() response: Response,
+    @Body() paymentRequestBody: PaymentRequestBody
+  ) {
+    this.paymentService
+      .paymentSheet(paymentRequestBody)
+      .then((res) => {
+        response.status(HttpStatus.SEE_OTHER).redirect(res);
+      })
+      .catch((error) => {
+        response.status(HttpStatus.BAD_REQUEST).json(error)
       });
   }
 }
